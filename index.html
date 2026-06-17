@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles Cariñitos - Regalos y Sorpresas en Dosquebradas y Pereira</title>
+  <!-- Tailwind CSS para el diseño rápido y responsivo -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons para los iconos de la interfaz -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts para una tipografía premium de e-commerce -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    /* Estilización elegante de barras de desplazamiento */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fdf2f8;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #f472b6;
+      border-radius: 10px;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-pink-50/30 text-gray-800 min-h-screen flex flex-col">
+
+  <!-- BANNER DE ANUNCIOS SUPERIOR -->
+  <div class="bg-gradient-to-r from-rose-500 to-pink-500 text-white text-xs md:text-sm font-semibold py-2 px-4 text-center">
+    <i class="fa-solid fa-gift mr-2 animate-bounce"></i> ¡Entregas express en Dosquebradas, Pereira y Santa Rosa de Cabal! Agenda tu pedido con anticipación.
+  </div>
+
+  <!-- CABECERA PRINCIPAL Y NAVEGACIÓN -->
+  <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-pink-100 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#" class="flex items-center space-x-2">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-white shadow-md">
+          <i class="fa-solid fa-heart text-lg"></i>
+        </div>
+        <div>
+          <span class="font-serif text-xl md:text-2xl font-bold bg-gradient-to-r from-rose-600 to-pink-500 bg-clip-text text-transparent">Detalles Cariñitos</span>
+          <p class="text-[10px] text-gray-500 tracking-wider uppercase font-semibold leading-none">Regalos que Inspiran</p>
+        </div>
+      </a>
+
+      <!-- BUSCADOR PRINCIPAL (Desktop) -->
+      <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+        <div class="relative w-full">
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Buscar desayunos sorpresa, arreglos florales, tazas..." 
+            class="w-full bg-gray-50 border border-pink-200 rounded-full py-2.5 pl-5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+            oninput="filtrarProductos()"
+          >
+          <span class="absolute right-4 top-3 text-pink-400">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- BOTONES DE CONTACTO Y CARRITO -->
+      <div class="flex items-center space-x-4">
+        <!-- Botón de Soporte WhatsApp -->
+        <a href="https://wa.me/573123456789?text=Hola,%20necesito%20ayuda%20para%20elegir%20un%20regalo" target="_blank" class="hidden sm:flex items-center space-x-2 text-sm font-semibold text-gray-600 hover:text-pink-600 transition-colors">
+          <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
+          <span>Asistencia en Vivo</span>
+        </a>
+
+        <!-- Botón de Carrito con Contador Dinámico -->
+        <button onclick="toggleCart()" class="relative p-3 rounded-full bg-pink-50 text-pink-600 hover:bg-pink-100 transition-colors focus:outline-none" aria-label="Carrito de compras">
+          <i class="fa-solid fa-basket-shopping text-xl"></i>
+          <span id="cart-count-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse hidden">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- BUSCADOR ADAPTATIVO (Móvil) -->
+    <div class="md:hidden px-4 pb-3 pt-1 border-t border-pink-50 bg-white">
+      <div class="relative w-full">
+        <input 
+          type="text" 
+          id="search-input-mobile" 
+          placeholder="¿Qué regalo especial buscas hoy?" 
+          class="w-full bg-gray-50 border border-pink-100 rounded-full py-2.5 pl-4 pr-10 text-xs focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+          oninput="sincronizarYFiltrar(this.value)"
+        >
+        <span class="absolute right-3.5 top-3 text-pink-400 text-sm">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECCIÓN HERO / PRESENTACIÓN IMPACTANTE -->
+  <section class="relative bg-gradient-to-b from-pink-100/40 via-white to-pink-50/20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
+      
+      <!-- Contenido de Texto e Introducción -->
+      <div class="flex-1 text-center lg:text-left space-y-6 max-w-2xl">
+        <div class="inline-flex items-center space-x-2 bg-pink-100 text-pink-700 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider">
+          <span class="flex h-2.5 w-2.5 rounded-full bg-rose-500 animate-ping"></span>
+          <span>Regalos con despacho en Dosquebradas y Pereira</span>
+        </div>
+        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+          Crea momentos que<br class="hidden sm:inline">
+          <span class="bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 bg-clip-text text-transparent">nunca olvidarán</span>
+        </h1>
+        <p class="text-sm md:text-base text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0">
+          Explora los desayunos sorpresa más deliciosos, hermosas rosas eternas que duran para siempre, canastas de golosinas personalizadas y anchetas exclusivas. Todo preparado a mano con insumos frescos y entrega a domicilio con estricto cuidado.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 pt-2">
+          <a href="#catalogo" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold rounded-full shadow-lg hover:shadow-pink-500/20 transition-all text-center">
+            Ver Catálogo de Detalles
+          </a>
+          <a href="https://wa.me/573123456789?text=Hola,%20quiero%20cotizar%20un%20regalo%20personalizado" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-gray-50 text-gray-800 font-bold rounded-full shadow-sm border border-pink-200 transition-all text-center flex items-center justify-center space-x-2">
+            <i class="fa-brands fa-whatsapp text-green-500 text-xl"></i>
+            <span>Diseño Personalizado</span>
+          </a>
+        </div>
+        
+        <!-- Beneficios Clave del Servicio -->
+        <div class="grid grid-cols-3 gap-2 pt-6 border-t border-pink-100/80 text-center">
+          <div class="p-2">
+            <i class="fa-solid fa-truck-fast text-rose-500 text-xl md:text-2xl mb-1"></i>
+            <p class="text-[10px] md:text-xs font-bold text-gray-800">Entregas Puntuales</p>
+            <p class="text-[9px] text-gray-500">Pereira & Dosquebradas</p>
+          </div>
+          <div class="p-2 border-x border-pink-100">
+            <i class="fa-solid fa-wand-magic-sparkles text-rose-500 text-xl md:text-2xl mb-1"></i>
+            <p class="text-[10px] md:text-xs font-bold text-gray-800">Tarjeta Personalizada</p>
+            <p class="text-[9px] text-gray-500">Dedicatoria a mano</p>
+          </div>
+          <div class="p-2">
+            <i class="fa-solid fa-seedling text-rose-500 text-xl md:text-2xl mb-1"></i>
+            <p class="text-[10px] md:text-xs font-bold text-gray-800">Garantía de Calidad</p>
+            <p class="text-[9px] text-gray-500">Insumos premium y frescos</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Imagen Destacada del Hero (Visual E-commerce) -->
+      <div class="flex-1 w-full max-w-md lg:max-w-xl relative">
+        <div class="absolute -top-4 -left-4 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-pulse"></div>
+        <div class="absolute -bottom-4 -right-4 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-2xl opacity-20 animate-pulse"></div>
+        
+        <div class="relative bg-white p-5 rounded-3xl shadow-xl border border-pink-100 overflow-hidden transform hover:scale-[1.01] transition-transform">
+          <div class="h-72 md:h-96 w-full rounded-2xl bg-gradient-to-tr from-pink-100 to-rose-200 flex flex-col justify-between p-6 relative overflow-hidden">
+            <!-- Corazones flotantes para añadir estilo de detalles -->
+            <div class="absolute inset-0 opacity-10 flex flex-wrap justify-around items-center text-rose-950 pointer-events-none select-none">
+              <i class="fa-solid fa-heart text-3xl m-2"></i>
+              <i class="fa-solid fa-heart text-xl m-2"></i>
+              <i class="fa-solid fa-gift text-2xl m-2"></i>
+              <i class="fa-solid fa-star text-4xl m-2"></i>
+              <i class="fa-solid fa-heart text-2xl m-2"></i>
+            </div>
+
+            <div class="flex justify-between items-start z-10">
+              <span class="bg-rose-500 text-white text-[10px] uppercase tracking-widest font-bold py-1.5 px-3 rounded-full">El Recomendado</span>
+              <span class="bg-white/95 backdrop-blur-md text-pink-600 font-serif text-sm font-bold py-1 px-3 rounded-full shadow-sm">$ 125.000</span>
+            </div>
+
+            <div class="flex flex-col items-center justify-center z-10 space-y-3">
+              <div class="text-7xl animate-bounce">🎁🌻☕</div>
+              <p class="font-serif text-2xl md:text-3xl font-bold text-rose-950 text-center drop-shadow-sm">Desayuno Amanecer Premium</p>
+              <p class="text-xs text-rose-900/80 text-center max-w-sm">Completo, fresco, con taza personalizada, globo burbuja gigante y sándwich de jamón gourmet.</p>
+            </div>
+
+            <div class="flex justify-center z-10">
+              <button onclick="agregarAlCarrito(1)" class="bg-white hover:bg-pink-50 text-pink-600 font-bold text-xs px-6 py-3 rounded-full shadow-md transition-all transform active:scale-95 flex items-center space-x-2">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Añadir a mi Regalo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTROS DE CATEGORÍAS -->
+  <section class="py-8 bg-white border-y border-pink-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-center font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-6">¿Qué tipo de detalle buscas?</h2>
+      
+      <div class="flex items-center justify-start md:justify-center overflow-x-auto pb-4 gap-3 no-scrollbar scroll-smooth" id="categories-container">
+        <button onclick="filtrarCategoria('todas')" class="categoria-btn active px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all flex items-center space-x-2 whitespace-nowrap bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md shadow-pink-500/10" data-cat="todas">
+          <i class="fa-solid fa-border-all"></i>
+          <span>Todo el Catálogo</span>
+        </button>
+        <button onclick="filtrarCategoria('desayunos')" class="categoria-btn px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all flex items-center space-x-2 whitespace-nowrap bg-pink-50 text-pink-700 hover:bg-pink-100" data-cat="desayunos">
+          <span class="text-lg">☕</span>
+          <span>Desayunos Sorpresa</span>
+        </button>
+        <button onclick="filtrarCategoria('anchetas')" class="categoria-btn px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all flex items-center space-x-2 whitespace-nowrap bg-pink-50 text-pink-700 hover:bg-pink-100" data-cat="anchetas">
+          <span class="text-lg">🧺</span>
+          <span>Anchetas Sorpresa</span>
+        </button>
+        <button onclick="filtrarCategoria('flores')" class="categoria-btn px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all flex items-center space-x-2 whitespace-nowrap bg-pink-50 text-pink-700 hover:bg-pink-100" data-cat="flores">
+          <span class="text-lg">🌹</span>
+          <span>Flores y Rosas</span>
+        </button>
+        <button onclick="filtrarCategoria('detalles')" class="categoria-btn px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all flex items-center space-x-2 whitespace-nowrap bg-pink-50 text-pink-700 hover:bg-pink-100" data-cat="detalles">
+          <span class="text-lg">🎈</span>
+          <span>Globos y Accesorios</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID DE PRODUCTOS DINÁMICO -->
+  <section id="catalogo" class="py-12 flex-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Control de Ordenamiento y Encabezado -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <h3 class="font-serif text-2xl md:text-3xl font-bold text-gray-900" id="catalogo-titulo">Todos nuestros regalos</h3>
+          <p class="text-xs md:text-sm text-gray-500">Agrega tus productos favoritos al carrito para enviarlos al instante.</p>
+        </div>
+        <div class="flex items-center space-x-2 self-start md:self-auto">
+          <label for="sort-select" class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Ordenar por:</label>
+          <select id="sort-select" onchange="ordenarProductos()" class="bg-white border border-pink-200 text-xs font-bold text-gray-700 rounded-xl p-2.5 focus:outline-none focus:ring-2 focus:ring-pink-400">
+            <option value="default">Más Recomendados</option>
+            <option value="precio-bajo">Menor precio primero</option>
+            <option value="precio-alto">Mayor precio primero</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cuadrícula Principal -->
+      <div id="productos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <!-- Rellenado mediante JavaScript -->
+      </div>
+
+      <!-- Mensaje cuando la búsqueda no coincide -->
+      <div id="no-products-view" class="hidden flex-col items-center justify-center py-20 px-4 text-center">
+        <div class="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center text-rose-400 mb-4 shadow-inner animate-pulse">
+          <i class="fa-solid fa-heart-crack text-3xl"></i>
+        </div>
+        <h4 class="font-serif text-xl font-bold text-gray-800">No encontramos ese detalle</h4>
+        <p class="text-xs text-gray-500 max-w-sm mt-2">Intenta escribir una categoría diferente, o pulsa el botón para restablecer.</p>
+        <button onclick="restablecerCatalogo()" class="mt-6 px-6 py-2.5 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-full text-xs transition-all shadow-md">
+          Restablecer Catálogo Completo
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOGRAFÍA: PROCESO FÁCIL -->
+  <section class="bg-gradient-to-tr from-rose-50 to-pink-100/40 py-12 border-t border-pink-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h3 class="font-serif text-2xl md:text-3xl font-bold text-gray-900">¿Cómo funciona Detalles Cariñitos?</h3>
+        <p class="text-xs md:text-sm text-rose-600 font-bold uppercase tracking-wider mt-1">Tu sorpresa en perfectas manos</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-100 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-extrabold text-lg mx-auto mb-4">1</div>
+            <h4 class="font-bold text-gray-800 text-sm mb-1">Escoge el Regalo</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Navega por nuestro catálogo de desayunos, flores, o anchetas y agrégalo al carrito.</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-100 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-extrabold text-lg mx-auto mb-4">2</div>
+            <h4 class="font-bold text-gray-800 text-sm mb-1">Escribe la Dedicatoria</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Configura los datos del destinatario y redacta un hermoso mensaje para la tarjeta de regalo.</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-100 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-extrabold text-lg mx-auto mb-4">3</div>
+            <h4 class="font-bold text-gray-800 text-sm mb-1">Agendamiento por WhatsApp</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Confirma el pedido. Se generará un resumen claro y te conectará al chat oficial de soporte.</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-pink-100 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-extrabold text-lg mx-auto mb-4">4</div>
+            <h4 class="font-bold text-gray-800 text-sm mb-1">Envío de Sonrisas</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Despachamos la entrega con todo el protocolo en la fecha y dirección acordada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANEL LATERAL FLOTANTE: CARRITO DE COMPRAS (DRAWER) -->
+  <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden translate-x-full transition-transform duration-300 ease-out pointer-events-none">
+    <!-- Overlay oscurecedor -->
+    <div onclick="toggleCart()" class="absolute inset-0 bg-black/40 backdrop-blur-sm pointer-events-auto cursor-pointer"></div>
+
+    <div class="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-auto">
+      <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+        
+        <!-- Cabecera del Carrito -->
+        <div class="px-4 py-5 bg-gradient-to-r from-rose-50 to-pink-50 border-b border-pink-100 flex items-center justify-between">
+          <div class="flex items-center space-x-2 text-pink-600">
+            <i class="fa-solid fa-basket-shopping text-xl"></i>
+            <h3 class="font-serif text-lg font-bold">Mis Cariñitos en Carrito</h3>
+          </div>
+          <button onclick="toggleCart()" class="text-gray-400 hover:text-rose-500 p-2 rounded-full hover:bg-gray-100 transition-colors">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Contenido Dinámico de los Regalos Añadidos -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-4" id="cart-items-container">
+          <!-- Rellenado por JS -->
+        </div>
+
+        <!-- Formulario Logístico Obligatorio/Opcional para WhatsApp -->
+        <div class="border-t border-pink-100 bg-pink-50/40 p-4 space-y-3" id="delivery-form-container">
+          <p class="text-xs font-bold text-pink-600 uppercase tracking-wide flex items-center gap-1.5">
+            <i class="fa-solid fa-truck-ramp-box"></i> Detalles Logísticos de la Sorpresa
+          </p>
+          
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] font-bold text-gray-500 mb-1">¿Quién Recibe?</label>
+              <input type="text" id="destinatario" placeholder="Nombre de tu persona favorita" class="w-full bg-white border border-pink-100 rounded-lg p-2 text-xs focus:ring-1 focus:ring-pink-400 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-gray-500 mb-1">Teléfono Recibe</label>
+              <input type="tel" id="tel-destinatario" placeholder="Para contactar en entrega" class="w-full bg-white border border-pink-100 rounded-lg p-2 text-xs focus:ring-1 focus:ring-pink-400 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] font-bold text-gray-500 mb-1">Fecha de Entrega</label>
+              <input type="date" id="fecha-entrega" class="w-full bg-white border border-pink-100 rounded-lg p-2 text-xs focus:ring-1 focus:ring-pink-400 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-gray-500 mb-1">Hora Estimada</label>
+              <select id="hora-entrega" class="w-full bg-white border border-pink-100 rounded-lg p-2 text-xs focus:ring-1 focus:ring-pink-400 focus:outline-none">
+                <option value="Mañana (7:00 AM - 10:00 AM)">Mañana (7:00 AM - 10:00 AM)</option>
+                <option value="Media mañana (10:00 AM - 12:00 PM)">Media mañana (10:00 AM - 12:00 PM)</option>
+                <option value="Tarde (2:00 PM - 5:00 PM)">Tarde (2:00 PM - 5:00 PM)</option>
+                <option value="Cualquier hora">Cualquier momento del día</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-500 mb-1">Sector / Zona de Domicilio</label>
+            <select id="zona-envio" onchange="actualizarCostoEnvio()" class="w-full bg-white border border-pink-200 rounded-lg p-2 text-xs focus:ring-1 focus:ring-pink-400 focus:outline-none font-medium">
+              <option value="0" data-nombre="Recoger en tienda (Dosquebradas)">Recoger en tienda (Sin costo)</option>
+              <option value="5000" data-nombre="Dosquebradas Urbano">Dosquebradas Urbano (+$5.000)</option>
+              <option value="7000" data-nombre="Pereira Centro">Pereira Centro (+$7.000)</option>
+              <option value="10000" data-nombre="Pereira - Cuba / Álamos / Condina">Pereira Sur / Cuba / Álamos (+$10.000)</option>
+              <option value="12000" data-nombre="Santa Rosa de Cabal">Santa Rosa de Cabal (+$12.000)</option>
+              <option value="15000" data-nombre="Corregimientos / Zonas Rurales">Zonas Rurales Cercanas (+$15.000)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-500 mb-1">Dirección Exacta de Entrega</label>
+            <input type="text" id="direccion-entrega" placeholder="Ej: Cra 15 # 24-50, Torres del Bosque Apto 302" class="w-full bg-white border border-pink-100 rounded-lg p-2 text-xs focus:ring-1 focus:ring-pink-400 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-[10px] font-bold text-gray-500 mb-1">Dedicatoria para la Tarjeta de Regalo</label>
+            <textarea id="dedicatoria" rows="2" placeholder="Escribe aquí tu mensaje de felicitaciones..." class="w-full bg-white border border-pink-100 rounded-lg p-2 text-xs focus:ring-1 focus:ring-pink-400 focus:outline-none resize-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Checkout de Compra -->
+        <div class="border-t border-pink-100 p-4 space-y-3 bg-white">
+          <div class="flex justify-between items-center text-xs text-gray-500">
+            <span>Subtotal de Detalles</span>
+            <span id="cart-subtotal" class="font-bold text-gray-700">$ 0</span>
+          </div>
+          <div class="flex justify-between items-center text-xs text-gray-500">
+            <span>Servicio de Domicilio</span>
+            <span id="cart-shipping" class="font-bold text-rose-500">$ 0</span>
+          </div>
+          <div class="flex justify-between items-center text-sm text-gray-900 border-t border-dashed border-gray-200 pt-2">
+            <span class="font-extrabold text-gray-800">Total Neto Estimado</span>
+            <span id="cart-total" class="font-serif text-lg font-bold bg-gradient-to-r from-rose-600 to-pink-500 bg-clip-text text-transparent">$ 0</span>
+          </div>
+
+          <button onclick="enviarPedidoAWhatsApp()" class="w-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-xs md:text-sm py-3.5 rounded-full shadow-lg transition-transform active:scale-95 flex items-center justify-center space-x-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Confirmar Sorpresa por WhatsApp</span>
+          </button>
+          <p class="text-[9px] text-center text-gray-400 leading-tight">Al presionar se abrirá WhatsApp para que nuestro equipo valide tu pedido, confirme disponibilidad e indique medios de pago.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN DE OPINIONES DE CLIENTES -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <h3 class="font-serif text-2xl md:text-3xl font-bold text-gray-900">Sonrisas Compartidas</h3>
+        <p class="text-xs md:text-sm text-pink-600 mt-2 font-bold uppercase tracking-wider">Testimonios de quienes confiaron su cariño en nosotros</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Testimonio 1 -->
+        <div class="bg-pink-50/20 p-6 rounded-3xl border border-pink-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-1 text-yellow-400 mb-3">
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+            </div>
+            <p class="text-xs md:text-sm text-gray-600 italic leading-relaxed">"¡Espectacular el servicio! Mandé un desayuno sorpresa para mi mamá en Dosquebradas desde España y todo salió perfecto. La tarjeta escrita a mano es un detalle hermoso."</p>
+          </div>
+          <div class="mt-4 flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-pink-200 flex items-center justify-center text-xs font-bold text-pink-700">MR</div>
+            <div>
+              <p class="text-xs font-bold text-gray-800">María Camila Restrepo</p>
+              <p class="text-[10px] text-gray-500">Compró desde el Exterior</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonio 2 -->
+        <div class="bg-pink-50/20 p-6 rounded-3xl border border-pink-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-1 text-yellow-400 mb-3">
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+            </div>
+            <p class="text-xs md:text-sm text-gray-600 italic leading-relaxed">"Las rosas eternas son divinas. Vienen en una caja muy elegante. Le encantaron a mi esposa para nuestro aniversario. Muy puntuales con la entrega en Pereira."</p>
+          </div>
+          <div class="mt-4 flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-pink-200 flex items-center justify-center text-xs font-bold text-pink-700">CO</div>
+            <div>
+              <p class="text-xs font-bold text-gray-800">Carlos Mario Orozco</p>
+              <p class="text-[10px] text-gray-500">Cliente en Pereira</p>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonio 3 -->
+        <div class="bg-pink-50/20 p-6 rounded-3xl border border-pink-100 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center space-x-1 text-yellow-400 mb-3">
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+              <i class="fa-solid fa-star text-xs"></i>
+            </div>
+            <p class="text-xs md:text-sm text-gray-600 italic leading-relaxed">"Las anchetas sorpresa son enormes, los chocolates son de primera y los globos duraron inflados muchísimos días. Recomiendo Detalles Cariñitos 100%."</p>
+          </div>
+          <div class="mt-4 flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-pink-200 flex items-center justify-center text-xs font-bold text-pink-700">LG</div>
+            <div>
+              <p class="text-xs font-bold text-gray-800">Laura Gallego</p>
+              <p class="text-[10px] text-gray-500">Cliente en Dosquebradas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOTIFICADOR FLOTANTE / TOAST (Sustituto Premium de alert()) -->
+  <div id="toast-message" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-900/95 backdrop-blur-md text-white text-xs py-3.5 px-6 rounded-full shadow-2xl z-50 flex items-center space-x-2.5 transition-all duration-300 opacity-0 pointer-events-none scale-90">
+    <span class="text-rose-400"><i class="fa-solid fa-circle-check text-base"></i></span>
+    <span id="toast-text" class="font-medium">¡Producto agregado con éxito!</span>
+  </div>
+
+  <!-- FOOTER / PIE DE PÁGINA -->
+  <footer class="bg-gray-950 text-gray-400 pt-16 pb-8 border-t border-pink-900/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+      
+      <!-- Presentación de la Tienda -->
+      <div class="space-y-4">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-white shadow">
+            <i class="fa-solid fa-heart text-sm"></i>
+          </div>
+          <span class="font-serif text-lg font-bold text-white">Detalles Cariñitos</span>
+        </div>
+        <p class="text-xs leading-relaxed">
+          Somos artesanos de momentos felices. Preparamos y entregamos desayunos sorpresa, arreglos de flores eternas, anchetas y regalos dulces personalizados en todo el Área Metropolitana de Risaralda.
+        </p>
+        <div class="flex space-x-3.5 pt-2">
+          <a href="#" class="w-9 h-9 rounded-full bg-gray-900 hover:bg-pink-600 text-white flex items-center justify-center transition-all">
+            <i class="fa-brands fa-facebook-f text-sm"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-gray-900 hover:bg-pink-600 text-white flex items-center justify-center transition-all">
+            <i class="fa-brands fa-instagram text-sm"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full bg-gray-900 hover:bg-pink-600 text-white flex items-center justify-center transition-all">
+            <i class="fa-brands fa-tiktok text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Enlaces del Catálogo -->
+      <div>
+        <h4 class="text-xs font-bold text-white mb-4 uppercase tracking-widest">Catálogo</h4>
+        <ul class="space-y-2.5 text-xs">
+          <li><a href="#catalogo" class="hover:text-pink-400 transition-colors">Todos los Regalos</a></li>
+          <li><a href="#" onclick="filtrarCategoria('desayunos')" class="hover:text-pink-400 transition-colors">Desayunos Sorpresa</a></li>
+          <li><a href="#" onclick="filtrarCategoria('anchetas')" class="hover:text-pink-400 transition-colors">Anchetas Gourmet</a></li>
+          <li><a href="#" onclick="filtrarCategoria('flores')" class="hover:text-pink-400 transition-colors">Ramos & Rosas Eternas</a></li>
+          <li><a href="#" onclick="filtrarCategoria('detalles')" class="hover:text-pink-400 transition-colors">Globos & Peluches</a></li>
+        </ul>
+      </div>
+
+      <!-- Áreas de Despacho -->
+      <div>
+        <h4 class="text-xs font-bold text-white mb-4 uppercase tracking-widest">Cobertura Risaralda</h4>
+        <ul class="space-y-2.5 text-xs">
+          <li class="flex items-center space-x-2">
+            <span class="text-pink-500"><i class="fa-solid fa-location-dot"></i></span>
+            <span>Dosquebradas (Toda la cabecera urbana)</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-pink-500"><i class="fa-solid fa-location-dot"></i></span>
+            <span>Pereira Centro y áreas residenciales</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-pink-500"><i class="fa-solid fa-location-dot"></i></span>
+            <span>Comuna de Cuba, Álamos y Condina</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-pink-500"><i class="fa-solid fa-location-dot"></i></span>
+            <span>Santa Rosa de Cabal (Urbano)</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Horarios y Soporte -->
+      <div>
+        <h4 class="text-xs font-bold text-white mb-4 uppercase tracking-widest">Horarios Especiales</h4>
+        <ul class="space-y-2.5 text-xs">
+          <li class="flex items-center space-x-2">
+            <span class="text-pink-500"><i class="fa-solid fa-clock"></i></span>
+            <span>Lunes a Sábado: 6:00 AM - 7:00 PM</span>
+          </li>
+          <li class="flex items-center space-x-2">
+            <span class="text-pink-500"><i class="fa-solid fa-clock"></i></span>
+            <span>Domingos y Festivos: 6:00 AM - 1:00 PM</span>
+          </li>
+          <li class="text-pink-400 font-bold mt-2.5 leading-relaxed">
+            * Para asegurar cupo de desayunos sorpresa agenda con mínimo 24 horas de antelación.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    
+    <!-- Derechos reservados -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-gray-900 text-center text-[11px]">
+      <p>&copy; 2026 Detalles Cariñitos. Todos los derechos reservados. Creado con amor para Dosquebradas y Pereira.</p>
+    </div>
+  </footer>
+
+  <!-- LÓGICA DE NEGOCIO JAVASCRIPT -->
+  <script>
+    // Enlace directo de recepción de pedidos por WhatsApp (Reemplazar con el real de tu tienda)
+    const WHATSAPP_CONTACT = "573123456789";
+
+    // Base de datos de catálogo local con precios en Pesos Colombianos ($ COP)
+    const PRODUCTOS = [
+      {
+        id: 1,
+        nombre: "Desayuno Premium Amanecer",
+        precio: 125000,
+        categoria: "desayunos",
+        emoji: "☕🥪🍓",
+        colorBg: "from-amber-100 to-rose-100",
+        descripcion: "Sándwich de jamón gourmet y queso maduro, parfait con granola y yogur griego, jugo natural premium de naranja, mini torta de chocolate, taza decorativa personalizada, globo metalizado burbuja y tarjeta impresa.",
+        destacado: true
+      },
+      {
+        id: 2,
+        nombre: "Ancheta Delicias del Campo",
+        precio: 140000,
+        categoria: "anchetas",
+        emoji: "🧺🧀🍷",
+        colorBg: "from-amber-50 to-amber-100",
+        descripcion: "Exclusiva canasta de mimbre con media botella de vino tinto fino, selección de quesos importados, galletas saladas de trigo, bombones Ferrero Rocher, uvas verdes, manzana y decoración de cintas satinadas.",
+        destacado: true
+      },
+      {
+        id: 3,
+        nombre: "Ramo de Rosas Eternas Rosas",
+        precio: 85000,
+        categoria: "flores",
+        emoji: "🌹🎀✨",
+        colorBg: "from-pink-100 to-rose-200",
+        descripcion: "Ramillete de 12 rosas eternas hechas a mano con listones de satín brillante de alta calidad, envuelto en papel coreano de lujo e iluminación LED con batería de botón incorporada para deslumbrar de noche.",
+        destacado: true
+      },
+      {
+        id: 4,
+        nombre: "Desayuno Sorpresa Feliz Cumpleaños",
+        precio: 95000,
+        categoria: "desayunos",
+        emoji: "🎈🍰🥤",
+        colorBg: "from-sky-100 to-pink-100",
+        descripcion: "Pancakes acompañados de Nutella artesanal y fresas, milo frío o caliente a tu elección, cupcake especial de cumpleaños con velita, ensalada de frutas frescas en caja de madera de pino rústica decorada.",
+        destacado: false
+      },
+      {
+        id: 5,
+        nombre: "Ancheta Explosión de Dulzura",
+        precio: 75000,
+        categoria: "anchetas",
+        emoji: "🍫🍭🍿",
+        colorBg: "from-yellow-100 to-amber-100",
+        descripcion: "Caja rígida alegre con variedad de golosinas importadas y nacionales: chocolatina Hershey's, papas fritas Pringles, gomitas agridulces, galletas Oreo y globo burbuja mediano personalizado con el nombre.",
+        destacado: false
+      },
+      {
+        id: 6,
+        nombre: "Cúpula Bella y Bestia Preservada",
+        precio: 110000,
+        categoria: "flores",
+        emoji: "🥀💡🔮",
+        colorBg: "from-purple-100 to-rose-100",
+        descripcion: "Rosa roja natural preservada mediante proceso químico que le permite durar de 3 a 5 años en óptimo estado. Presentada en cúpula de vidrio de alto impacto, base de madera natural y delicada luz LED cálida.",
+        destacado: false
+      },
+      {
+        id: 7,
+        nombre: "Cofre Amor de Rosas Rojas y Bombones",
+        precio: 155000,
+        categoria: "flores",
+        emoji: "🌹🍫🎁",
+        colorBg: "from-red-100 to-rose-100",
+        descripcion: "Lujosa caja en forma de corazón con un lecho de 18 rosas rojas frescas tipo exportación cultivadas en Colombia, con un centro selecto de bombones de chocolate Ferrero Rocher.",
+        destacado: false
+      },
+      {
+        id: 8,
+        nombre: "Taza de Cerámica con Chocolates & Globo",
+        precio: 45000,
+        categoria: "detalles",
+        emoji: "☕🎈🍬",
+        colorBg: "from-pink-50 to-rose-100",
+        descripcion: "Mug personalizado de alta temperatura relleno de una fina selección de bombones de caramelo, un globo metalizado de 9 pulgadas según la fecha y tarjeta de felicitaciones.",
+        destacado: false
+      },
+      {
+        id: 9,
+        nombre: "Desayuno Sorpresa Fitness & Salud",
+        precio: 115000,
+        categoria: "desayunos",
+        emoji: "🥑🥝🥣",
+        colorBg: "from-emerald-50 to-rose-50",
+        descripcion: "Dos rebanadas de pan integral rústico con aguacate hass y huevo pochado, yogur griego descremado con chía y frambuesas, jugo verde natural exprimido al instante y café premium sin azúcar.",
+        destacado: false
+      }
+    ];
+
+    // Estados variables globales de aplicación
+    let carrito = [];
+    let categoriaSeleccionada = "todas";
+    let queryBusqueda = "";
+
+    // Carga de la aplicación inicial
+    window.onload = function() {
+      renderizarProductos();
+      actualizarContadores();
+    };
+
+    // Renderizado de las tarjetas en el Grid
+    function renderizarProductos() {
+      const grid = document.getElementById("productos-grid");
+      const noProductsView = document.getElementById("no-products-view");
+      grid.innerHTML = "";
+
+      // Filtro dinámico cruzado
+      let filtrados = PRODUCTOS.filter(producto => {
+        const coincideCat = (categoriaSeleccionada === "todas" || producto.categoria === categoriaSeleccionada);
+        const coincideBusqueda = producto.nombre.toLowerCase().includes(queryBusqueda.toLowerCase()) || 
+                                 producto.descripcion.toLowerCase().includes(queryBusqueda.toLowerCase());
+        return coincideCat && coincideBusqueda;
+      });
+
+      // Lógica de ordenamiento
+      const sortVal = document.getElementById("sort-select").value;
+      if (sortVal === "precio-bajo") {
+        filtrados.sort((a, b) => a.precio - b.precio);
+      } else if (sortVal === "precio-alto") {
+        filtrados.sort((a, b) => b.precio - a.precio);
+      }
+
+      // Visualización de error cuando el catálogo queda en cero
+      if (filtrados.length === 0) {
+        grid.classList.add("hidden");
+        noProductsView.classList.remove("hidden");
+        noProductsView.classList.add("flex");
+        return;
+      } else {
+        grid.classList.remove("hidden");
+        noProductsView.classList.add("hidden");
+        noProductsView.classList.remove("flex");
+      }
+
+      // Generar elementos
+      filtrados.forEach(producto => {
+        const tarjeta = document.createElement("div");
+        tarjeta.className = "bg-white rounded-3xl overflow-hidden border border-pink-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group transform hover:-translate-y-1";
+        
+        tarjeta.innerHTML = `
+          <!-- Área de presentación de Producto -->
+          <div class="h-56 bg-gradient-to-tr ${producto.colorBg} relative flex flex-col justify-between p-5 overflow-hidden">
+            <div class="absolute inset-0 opacity-5 font-bold text-center pointer-events-none flex justify-around items-center flex-wrap select-none text-xs">
+              <span>CARIÑO</span><span>SORPRESA</span><span>DULZURA</span>
+            </div>
+            
+            <div class="flex justify-between items-start z-10">
+              <span class="bg-pink-100/90 text-pink-700 text-[10px] uppercase tracking-wider font-extrabold py-1 px-2.5 rounded-full">
+                ${producto.categoria.toUpperCase()}
+              </span>
+              ${producto.destacado ? `
+                <span class="bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[9px] uppercase tracking-widest font-extrabold py-1 px-2.5 rounded-full shadow-sm flex items-center gap-1">
+                  <i class="fa-solid fa-star"></i> Recomendado
+                </span>
+              ` : ''}
+            </div>
+
+            <!-- Representación estética de producto a través de Emoji -->
+            <div class="text-6xl text-center my-2 transform group-hover:scale-110 transition-transform duration-300 drop-shadow">
+              ${producto.emoji}
+            </div>
+
+            <div class="text-right z-10">
+              <span class="bg-white/95 backdrop-blur-md text-rose-600 font-serif font-bold text-sm px-3 py-1.5 rounded-full shadow-sm">
+                $ ${producto.precio.toLocaleString('co-CO')} COP
+              </span>
+            </div>
+          </div>
+
+          <!-- Detalles e información de Compra -->
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h4 class="font-serif text-lg font-bold text-gray-900 group-hover:text-rose-600 transition-colors">
+                ${producto.nombre}
+              </h4>
+              <p class="text-xs text-gray-500 mt-2 line-clamp-3 leading-relaxed">
+                ${producto.descripcion}
+              </p>
+            </div>
+
+            <div class="pt-2">
+              <button 
+                onclick="agregarAlCarrito(${producto.id})" 
+                class="w-full bg-pink-50 hover:bg-pink-500 hover:text-white text-pink-600 font-bold text-xs py-3 rounded-2xl transition-all duration-200 flex items-center justify-center space-x-2 transform active:scale-95"
+              >
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Agregar a mi Sorpresa</span>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(tarjeta);
+      });
+    }
+
+    // Filtros por Categoría de Regalo
+    function filtrarCategoria(categoria) {
+      categoriaSeleccionada = categoria;
+      
+      const botones = document.querySelectorAll(".categoria-btn");
+      botones.forEach(btn => {
+        const esActivo = btn.getAttribute("data-cat") === categoria;
+        if (esActivo) {
+          btn.className = "categoria-btn active px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all flex items-center space-x-2 whitespace-nowrap bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md shadow-pink-500/10";
+        } else {
+          btn.className = "categoria-btn px-6 py-3 rounded-full text-xs md:text-sm font-bold transition-all flex items-center space-x-2 whitespace-nowrap bg-pink-50 text-pink-700 hover:bg-pink-100";
+        }
+      });
+
+      const titulos = {
+        todas: "Todo el Catálogo",
+        desayunos: "Nuestros Desayunos Sorpresa",
+        anchetas: "Arreglos y Anchetas Especiales",
+        flores: "Ramos de Flores y Rosas Eternas",
+        detalles: "Adicionales, Globos y Peluches"
+      };
+      document.getElementById("catalogo-titulo").innerText = titulos[categoria] || "Nuestros Detalles";
+
+      renderizarProductos();
+    }
+
+    // Sincronización inteligente de buscador móvil/escritorio
+    function sincronizarYFiltrar(val) {
+      document.getElementById("search-input").value = val;
+      filtrarProductos();
+    }
+
+    // Lógica del filtro de búsqueda
+    function filtrarProductos() {
+      const isMobile = window.innerWidth < 768;
+      queryBusqueda = isMobile ? document.getElementById("search-input-mobile").value : document.getElementById("search-input").value;
+      renderizarProductos();
+    }
+
+    // Reorganizar productos
+    function ordenarProductos() {
+      renderizarProductos();
+    }
+
+    // Reestablecer catálogo
+    function restablecerCatalogo() {
+      document.getElementById("search-input").value = "";
+      document.getElementById("search-input-mobile").value = "";
+      queryBusqueda = "";
+      filtrarCategoria("todas");
+    }
+
+    // Carrito de compras: Agregar
+    function agregarAlCarrito(id) {
+      const prod = PRODUCTOS.find(p => p.id === id);
+      if (!prod) return;
+
+      const itemExistente = carrito.find(item => item.id === id);
+      if (itemExistente) {
+        itemExistente.cantidad += 1;
+      } else {
+        carrito.push({
+          ...prod,
+          cantidad: 1
+        });
+      }
+
+      actualizarContadores();
+      renderizarCarrito();
+      mostrarToast(`¡${prod.nombre} agregado con éxito!`);
+    }
+
+    // Carrito de compras: Reducir cantidad
+    function disminuirCantidad(id) {
+      const itemExistente = carrito.find(item => item.id === id);
+      if (!itemExistente) return;
+
+      if (itemExistente.cantidad > 1) {
+        itemExistente.cantidad -= 1;
+      } else {
+        carrito = carrito.filter(item => item.id !== id);
+      }
+
+      actualizarContadores();
+      renderizarCarrito();
+    }
+
+    // Carrito de compras: Incrementar cantidad
+    function aumentarCantidad(id) {
+      const itemExistente = carrito.find(item => item.id === id);
+      if (itemExistente) {
+        itemExistente.cantidad += 1;
+      }
+      actualizarContadores();
+      renderizarCarrito();
+    }
+
+    // Carrito de compras: Eliminar producto
+    function eliminarDelCarrito(id) {
+      carrito = carrito.filter(item => item.id !== id);
+      actualizarContadores();
+      renderizarCarrito();
+      mostrarToast("Detalle removido de tu carrito.");
+    }
+
+    // Actualizar insignias de conteo del carrito
+    function actualizarContadores() {
+      const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+      const badge = document.getElementById("cart-count-badge");
+      
+      if (totalItems > 0) {
+        badge.innerText = totalItems;
+        badge.classList.remove("hidden");
+      } else {
+        badge.classList.add("hidden");
+      }
+    }
+
+    // Ocultar / Mostrar Drawer del Carrito
+    function toggleCart() {
+      const drawer = document.getElementById("cart-drawer");
+      const estaAbierto = drawer.classList.contains("translate-x-0");
+      
+      if (estaAbierto) {
+        drawer.classList.remove("translate-x-0");
+        drawer.classList.add("translate-x-full");
+      } else {
+        drawer.classList.remove("translate-x-full");
+        drawer.classList.add("translate-x-0");
+        renderizarCarrito();
+      }
+    }
+
+    // Renderizar listado de productos en el Drawer
+    function renderizarCarrito() {
+      const container = document.getElementById("cart-items-container");
+      container.innerHTML = "";
+
+      if (carrito.length === 0) {
+        container.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-20 text-center space-y-3">
+            <div class="text-6xl animate-bounce">🛍️</div>
+            <h4 class="font-serif text-base font-bold text-gray-800">Tu carrito de sorpresas está vacío</h4>
+            <p class="text-xs text-gray-500 max-w-xs px-4">¡Agrega un delicioso desayuno sorpresa o un ramo para comenzar a regalar amor!</p>
+            <button onclick="toggleCart()" class="mt-4 px-6 py-2.5 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-full text-xs transition-colors shadow-md">
+              Ver Catálogo Completo
+            </button>
+          </div>
+        `;
+        document.getElementById("cart-subtotal").innerText = "$ 0";
+        document.getElementById("cart-shipping").innerText = "$ 0";
+        document.getElementById("cart-total").innerText = "$ 0";
+        return;
+      }
+
+      let subtotal = 0;
+
+      carrito.forEach(item => {
+        const itemTotal = item.precio * item.cantidad;
+        subtotal += itemTotal;
+
+        const div = document.createElement("div");
+        div.className = "flex items-center justify-between border-b border-pink-50 pb-3.5 space-x-3";
+        div.innerHTML = `
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr ${item.colorBg} flex items-center justify-center text-xl shadow-inner shrink-0 select-none">
+            ${item.emoji}
+          </div>
+          <div class="flex-1 min-w-0">
+            <h5 class="text-xs font-bold text-gray-900 truncate">${item.nombre}</h5>
+            <p class="text-[10px] text-gray-400">$ ${item.precio.toLocaleString('co-CO')} x ${item.cantidad}</p>
+            <p class="text-xs font-bold text-rose-500 mt-0.5">$ ${itemTotal.toLocaleString('co-CO')}</p>
+          </div>
+
+          <!-- Controles de Cantidad más amplios -->
+          <div class="flex items-center space-x-1.5 bg-gray-50 p-1 rounded-xl border border-pink-100/30">
+            <button onclick="disminuirCantidad(${item.id})" class="w-6 h-6 bg-white hover:bg-rose-50 rounded-lg text-xs font-bold text-gray-600 hover:text-rose-500 flex items-center justify-center border border-gray-100 shadow-sm transition-all">-</button>
+            <span class="text-xs font-bold px-1 text-gray-700">${item.cantidad}</span>
+            <button onclick="aumentarCantidad(${item.id})" class="w-6 h-6 bg-white hover:bg-rose-50 rounded-lg text-xs font-bold text-gray-600 hover:text-pink-500 flex items-center justify-center border border-gray-100 shadow-sm transition-all">+</button>
+          </div>
+
+          <button onclick="eliminarDelCarrito(${item.id})" class="text-gray-400 hover:text-rose-500 p-1.5 rounded-full hover:bg-gray-50 transition-all" aria-label="Remover">
+            <i class="fa-regular fa-trash-can text-sm"></i>
+          </button>
+        `;
+        container.appendChild(div);
+      });
+
+      // Calcular montos de envío y total neto
+      const costoDomicilio = parseInt(document.getElementById("zona-envio").value) || 0;
+      const totalEstimado = subtotal + costoDomicilio;
+
+      document.getElementById("cart-subtotal").innerText = `$ ${subtotal.toLocaleString('co-CO')}`;
+      document.getElementById("cart-shipping").innerText = `$ ${costoDomicilio.toLocaleString('co-CO')}`;
+      document.getElementById("cart-total").innerText = `$ ${totalEstimado.toLocaleString('co-CO')}`;
+    }
+
+    // Actualizador interactivo de costos por zona de Pereira/Dosquebradas
+    function actualizarCostoEnvio() {
+      renderizarCarrito();
+    }
+
+    // Toast flotante animado sustituto de Alert
+    function mostrarToast(mensaje) {
+      const toast = document.getElementById("toast-message");
+      document.getElementById("toast-text").innerText = mensaje;
+      
+      toast.classList.remove("opacity-0", "pointer-events-none", "scale-90");
+      toast.classList.add("opacity-100", "scale-100");
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "pointer-events-none", "scale-90");
+        toast.classList.remove("opacity-100", "scale-100");
+      }, 3500);
+    }
+
+    // Procesamiento y Generación de Pedidos para WhatsApp
+    function enviarPedidoAWhatsApp() {
+      if (carrito.length === 0) {
+        mostrarToast("Por favor agrega detalles para poder procesar la compra.");
+        return;
+      }
+
+      // Extracción de variables de formulario logístico
+      const destinatario = document.getElementById("destinatario").value.trim();
+      const telDestinatario = document.getElementById("tel-destinatario").value.trim();
+      const fecha = document.getElementById("fecha-entrega").value;
+      const hora = document.getElementById("hora-entrega").value;
+      const selectZona = document.getElementById("zona-envio");
+      const nombreZona = selectZona.options[selectZona.selectedIndex].getAttribute("data-nombre");
+      const costoEnvio = parseInt(selectZona.value);
+      const direccion = document.getElementById("direccion-entrega").value.trim();
+      const dedicatoria = document.getElementById("dedicatoria").value.trim();
+
+      // Validación rigurosa de datos de entrega
+      if (!destinatario || !direccion || !fecha) {
+        mostrarToast("Por favor completa los datos mínimos (Nombre de quien recibe, Fecha y Dirección).");
+        return;
+      }
+
+      // Estructuración del mensaje automatizado para WhatsApp
+      let mensaje = `💖 *NUEVO PEDIDO - DETALLES CARIÑITOS* 💖\n\n`;
+      mensaje += `Hola, quiero agendar el siguiente regalo sorpresa:\n\n`;
+      mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+      mensaje += `🎁 *PRODUCTOS SOLICITADOS*:\n`;
+      
+      let subtotal = 0;
+      carrito.forEach((item) => {
+        const itemTotal = item.precio * item.cantidad;
+        subtotal += itemTotal;
+        mensaje += `• ${item.cantidad}x *${item.nombre}* (${item.emoji}) - $${itemTotal.toLocaleString('co-CO')}\n`;
+      });
+      
+      mensaje += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+      mensaje += `📍 *DATOS DE ENTREGA*:\n`;
+      mensaje += `• *Para:* ${destinatario}\n`;
+      if (telDestinatario) {
+        mensaje += `• *Teléfono Recibe:* ${telDestinatario}\n`;
+      }
+      mensaje += `• *Fecha:* ${fecha}\n`;
+      mensaje += `• *Hora de Entrega:* ${hora}\n`;
+      mensaje += `• *Sector / Zona:* ${nombreZona}\n`;
+      mensaje += `• *Dirección:* ${direccion}\n\n`;
+
+      if (dedicatoria) {
+        mensaje += `✉️ *MENSAJE PARA LA TARJETA*:\n`;
+        mensaje += `"${dedicatoria}"\n\n`;
+      }
+
+      const total = subtotal + costoEnvio;
+      mensaje += `━━━━━━━━━━━━━━━━━━━━━\n`;
+      mensaje += `💰 *RESUMEN DE CUENTA*:\n`;
+      mensaje += `• *Subtotal:* $${subtotal.toLocaleString('co-CO')}\n`;
+      mensaje += `• *Domicilio:* $${costoEnvio.toLocaleString('co-CO')}\n`;
+      mensaje += `• *TOTAL COMPRA:* *$${total.toLocaleString('co-CO')} COP*\n`;
+      mensaje += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+      mensaje += `*(Por favor confirmen medios de pago disponibles para completar el proceso)* ✨`;
+
+      // Codificación e inicio de conversación en WhatsApp
+      const mensajeCodificado = encodeURIComponent(mensaje);
+      const urlWhatsApp = `https://wa.me/${WHATSAPP_CONTACT}?text=${mensajeCodificado}`;
+
+      window.open(urlWhatsApp, '_blank');
+    }
+  </script>
+</body>
+</html>
